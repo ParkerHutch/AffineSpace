@@ -1,1 +1,0 @@
-def hello := "Welcome to affine-structured spaces!"

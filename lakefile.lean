@@ -10,3 +10,6 @@ lean_lib «Affine6501S24» where
 @[default_target]
 lean_exe «affine6501s24» where
   root := `Main
+
+require mathlib from git
+  "https://github.com/leanprover-community/mathlib4"
