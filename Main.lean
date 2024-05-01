@@ -8,18 +8,28 @@ import Mathlib.Data.Vector        --https://github.com/leanprover-community/math
 def t1 : Vector ℚ 3 := ⟨ [0, (1/2:ℚ), 2], rfl ⟩ 
 def t2 : Vector ℚ 3 := ⟨ [2, (-1/2:ℚ), -2], rfl ⟩ 
 
+#eval s!"{t1}"
+
 def p1 : AffPoint ℚ 3  := ⟨ t1 ⟩ 
+
+#eval s!"{p1}"
+
 def p2 : AffPoint ℚ 3  := ⟨ t2 ⟩ 
 
-#reduce p2 -ᵥ p1
-
 def v := p2 -ᵥ p1
+
+#eval s!"{v}"
+
+
+#check ToString (AffPoint ℚ 3)
 
 def main : IO Unit :=
   do
     IO.println s!"t1 = {t1}"
     IO.println s!"t2 = {t2}"
-    IO.println s!"p2 -ᵥ p2 = {v}""
+    IO.println s!"p1 = {p1}"
+    IO.println s!"p2 = {p2}"
+    IO.println s!"v = p1 -ᵥ p2 = {v}"
 
 
 #eval main

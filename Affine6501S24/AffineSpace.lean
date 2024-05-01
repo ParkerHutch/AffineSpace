@@ -52,9 +52,14 @@ operations that only make sense for, saw two same dimensional
 vectors, we'll get type errors if we make mistakes like that. 
 -/
 
+-- Implemented as list with a proof of length n
+
+#check Vector K n   -- type of n-tuples of values from K represented as a list
+
 instance : ToString (Vector K n) where
   toString : (Vector K n) -> String
-    | ⟨ l, _ ⟩  => s!"({l})"     -- {} matching notation, string interpolation 
+    | ⟨ l, _ ⟩  => s!"{l}"     -- {} matching notation, string interpolation 
+
 
 
 structure AffPoint (K : Type u) [Field K] (n : Nat) where
@@ -62,7 +67,7 @@ structure AffPoint (K : Type u) [Field K] (n : Nat) where
 
 instance : ToString (AffPoint K n) where
   toString : (AffPoint K n) -> String
-    | ⟨ l ⟩   => s!"Pnt({l})"     -- {} matching notation, string interpolation 
+    | ⟨ l ⟩   => s!"Pt{l}"     -- {} matching notation, string interpolation 
 
 
 structure AffVector (K : Type u) [Field K] (n : Nat) where
@@ -70,7 +75,7 @@ structure AffVector (K : Type u) [Field K] (n : Nat) where
 
 instance : ToString (AffVector K n) where
   toString : (AffVector K n) -> String
-    | ⟨ l ⟩    => s!"Vec({l})"      -- {} matching notation, string interpolation 
+    | ⟨ l ⟩    => s!"Vc{l}"      -- {} matching notation, string interpolation 
 
 #check Repr
 /-!
@@ -90,12 +95,10 @@ class VSub (G : outParam (Type*)) (P : Type*) where
   vsub : P → P → G
 -/
 
-#check (@AffPoint )
-
 def vsub_Aff : AffPoint K n → AffPoint K n → AffVector K n 
-| ⟨ l1, _ ⟩, ⟨ l2, _ ⟩ => AffVector.mk 
+| ⟨ l1, _ ⟩, ⟨ l2, _ ⟩ => 
   ⟨ 
-    (List.zipWith (λ k1 k2 => k1 - k2) l1 l2), 
+    (List.zipWith (. - .) l1 l2), 
    sorry
   ⟩ 
 
