@@ -4,18 +4,20 @@ import Mathlib.Algebra.Field.Defs --https://leanprover-community.github.io/mathl
 import Mathlib.Algebra.AddTorsor
 import Mathlib.Data.Vector        --https://github.com/leanprover-community/mathlib4/blob/a7ed535af2a1f78accefeaeee98233dd25714110/Mathlib/Data/Vector.lean#L20-L21
 
-
+-- Define some ℚ n-tuples
 def t1 : Vector ℚ 3 := ⟨ [0, (1/2:ℚ), 2], rfl ⟩ 
 def t2 : Vector ℚ 3 := ⟨ [2, (-1/2:ℚ), -2], rfl ⟩ 
 
+-- see tuple toString delegate to List toString 
 #eval s!"{t1}"
 
+
+-- Define some rational affine 3-points
 def p1 : AffPoint ℚ 3  := ⟨ t1 ⟩ 
-
-#eval s!"{p1}"
-
 def p2 : AffPoint ℚ 3  := ⟨ t2 ⟩ 
 
+-- AffPt toString
+#eval s!"{p1}"
 def v := p2 -ᵥ p1
 
 #eval s!"{v}"

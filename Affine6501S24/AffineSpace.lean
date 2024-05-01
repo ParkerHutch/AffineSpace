@@ -61,13 +61,12 @@ instance : ToString (Vector K n) where
     | ⟨ l, _ ⟩  => s!"{l}"     -- {} matching notation, string interpolation 
 
 
-
 structure AffPoint (K : Type u) [Field K] (n : Nat) where
   rep : Vector K n
 
 instance : ToString (AffPoint K n) where
   toString : (AffPoint K n) -> String
-    | ⟨ l ⟩   => s!"Pt{l}"     -- {} matching notation, string interpolation 
+    | ⟨ l ⟩   => s!"(Pt {l})"     -- {} matching notation, string interpolation 
 
 
 structure AffVector (K : Type u) [Field K] (n : Nat) where
@@ -75,7 +74,7 @@ structure AffVector (K : Type u) [Field K] (n : Nat) where
 
 instance : ToString (AffVector K n) where
   toString : (AffVector K n) -> String
-    | ⟨ l ⟩    => s!"Vc{l}"      -- {} matching notation, string interpolation 
+    | ⟨ l ⟩    => s!"(Vc {l})"      -- {} matching notation, string interpolation 
 
 #check Repr
 /-!
