@@ -5,3 +5,4 @@
 
 structure Point
 (r : Rat)
+
