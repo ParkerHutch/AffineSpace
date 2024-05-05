@@ -108,5 +108,30 @@ def vsub_Aff : AffPoint K n → AffPoint K n → AffVector K n
     sorry
   ⟩
 
+def inverse: AffVector K n → AffVector K n := sorry
+
+instance AddAction AffVector AddPoint := sorry
+
+
 instance : VSub (AffVector K n) (AffPoint K n) :=  { vsub := vsub_Aff n}
 instance : VAdd (AffVector K n) (AffPoint K n) :=  { vadd := vadd_Aff n}
+
+
+instance : Add AffVector := { add := vadd_Aff }   -- using {} notation
+
+
+instance : AddSemigroup AffVector := { add_assoc := sorry }
+
+
+instance : AddMonoid AffVector := {
+  zero_add := sorry
+  add_zero := sorry
+}
+
+instance : SubNegMonoid AffVector := {
+    neg := inverse,
+    sub_eq_add_neg := sorry,
+    zsmul_zero' := sorry,
+    zsmul_succ' := sorry,
+    zsmul_neg' := sorry
+}
