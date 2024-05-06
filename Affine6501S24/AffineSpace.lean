@@ -94,12 +94,32 @@ class VSub (G : outParam (Type*)) (P : Type*) where
   vsub : P → P → G
 -/
 
+-- instance zero_vec : Zero (AffVector K n) := ⟨ Vector 0 ⟩
+
+def add_vec : AffVector K n → AffVector K n → AffVector K n
+| ⟨ l1, _ ⟩, ⟨ l2, _ ⟩ =>
+  ⟨
+    (List.zipWith (. + .) l1 l2),
+    sorry
+  ⟩
+
+instance : Add (AffVector K n) := { add := add_vec n }
+
+instance : AddSemigroup (AffVector K n) := { add_assoc := sorry }
+
+instance : AddMonoid (AffVector K n) := {
+  zero_add := sorry
+  add_zero := sorry
+}
+
 def vadd_Aff : AffVector K n → AffPoint K n → AffPoint K n
 | ⟨ l1, _ ⟩, ⟨ l2, _ ⟩ => sorry
   -- ⟨
   --   (List.zipWith (. - .) l1 l2),
   --   sorry
   -- ⟩
+
+instance : VAdd (AffVector K n) (AffPoint K n) :=  { vadd := vadd_Aff n}
 
 def vsub_Aff : AffPoint K n → AffPoint K n → AffVector K n
 | ⟨ l1, _ ⟩, ⟨ l2, _ ⟩ =>
@@ -108,13 +128,13 @@ def vsub_Aff : AffPoint K n → AffPoint K n → AffVector K n
     sorry
   ⟩
 
+instance : VSub (AffVector K n) (AffPoint K n) :=  { vsub := vsub_Aff n}
+
 def inverse: AffVector K n → AffVector K n := sorry
 
 instance AddAction AffVector AddPoint := sorry
 
 
-instance : VSub (AffVector K n) (AffPoint K n) :=  { vsub := vsub_Aff n}
-instance : VAdd (AffVector K n) (AffPoint K n) :=  { vadd := vadd_Aff n}
 
 
 instance : Add AffVector := { add := vadd_Aff }   -- using {} notation
