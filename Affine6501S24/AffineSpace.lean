@@ -95,7 +95,7 @@ class VSub (G : outParam (Type*)) (P : Type*) where
 -/
 
 instance zero_vec : Zero (AffVector K n) where
-  zero := ⟨ List.replicate n 0, sorry ⟩ -- List.length_replicate n 0
+  zero := ⟨ List.replicate n 0, List.length_replicate n 0 ⟩
 
 def add_vectors : AffVector K n → AffVector K n → AffVector K n
 | ⟨ l1, _ ⟩, ⟨ l2, _ ⟩ =>
@@ -109,10 +109,11 @@ instance : Add (AffVector K n) := { add := add_vectors n }
 instance : AddSemigroup (AffVector K n) := { add_assoc := sorry }
 
 instance : AddMonoid (AffVector K n) := {
-  zero := sorry
-  nsmul := sorry
   zero_add := sorry
   add_zero := sorry
+  nsmul := sorry
+  nsmul_zero := sorry
+  nsmul_succ := sorry
 }
 
 def vadd_Aff : AffVector K n → AffPoint K n → AffPoint K n
@@ -141,11 +142,12 @@ instance : VSub (AffVector K n) (AffPoint K n) :=  { vsub := vsub_Aff n}
 def inverse : AffVector K n → AffVector K n := sorry
 
 instance : SubNegMonoid (AffVector K n) := {
-    neg := inverse,
-    sub_eq_add_neg := sorry,
-    zsmul_zero' := sorry,
-    zsmul_succ' := sorry,
+    sub_eq_add_neg := sorry
+    zsmul_zero' := sorry
+    zsmul_succ' := sorry
     zsmul_neg' := sorry
+    zsmul := sorry
+    neg := sorry
 }
 
 instance : AddGroup (AffVector K n) := {
@@ -166,11 +168,11 @@ instance : AddTorsor (AffVector K n) (AffPoint K n) := {
 }
 
 -- TODO
--- zer_vec : Done, replace sorry with commented code
--- AddMonoid
+-- zer_vec : Done, replace sorry with commented code -> done?
+-- AddMonoid -> done?
 -- Inverse
--- SubNegMonoid (Should be fixed by inverse)
+-- SubNegMonoid (Should be fixed by inverse) -> done?
 -- Nonempty
--- AddTorsor (The mideterm version also has the same error)
+-- AddTorsor (The midterm version also has the same error)
 
 end k_affine_n
