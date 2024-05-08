@@ -106,7 +106,19 @@ def add_vectors : AffVector K n → AffVector K n → AffVector K n
 
 instance : Add (AffVector K n) := { add := add_vectors n }
 
-instance : AddSemigroup (AffVector K n) := { add_assoc := sorry }
+theorem add_assoc_vector : ∀ (a b c : AffVector K n), a + b + c = a + (b + c) :=
+by
+  intros a b c
+  cases a
+  repeat {
+    cases b
+    repeat {
+      cases c
+      repeat {rfl}
+    }
+  }
+
+instance : AddSemigroup (AffVector K n) := { add_assoc := sorry}
 
 instance : AddMonoid (AffVector K n) := {
   zero_add := sorry
