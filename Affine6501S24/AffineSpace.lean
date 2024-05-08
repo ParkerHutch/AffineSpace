@@ -94,20 +94,23 @@ class VSub (G : outParam (Type*)) (P : Type*) where
   vsub : P → P → G
 -/
 
--- instance zero_vec : Zero (AffVector K n) := ⟨ Vector 0 ⟩
+instance zero_vec : Zero (AffVector K n) where
+  zero := ⟨ List.replicate n 0, sorry ⟩ --  List.length_replicate n 0
 
-def add_vec : AffVector K n → AffVector K n → AffVector K n
+def add_vectors : AffVector K n → AffVector K n → AffVector K n
 | ⟨ l1, _ ⟩, ⟨ l2, _ ⟩ =>
   ⟨
     (List.zipWith (. + .) l1 l2),
     sorry
   ⟩
 
-instance : Add (AffVector K n) := { add := add_vec n }
+instance : Add (AffVector K n) := { add := add_vectors n }
 
 instance : AddSemigroup (AffVector K n) := { add_assoc := sorry }
 
 instance : AddMonoid (AffVector K n) := {
+  zero := sorry
+  nsmul := sorry
   zero_add := sorry
   add_zero := sorry
 }
@@ -121,6 +124,11 @@ def vadd_Aff : AffVector K n → AffPoint K n → AffPoint K n
 
 instance : VAdd (AffVector K n) (AffPoint K n) :=  { vadd := vadd_Aff n}
 
+instance : AddAction (AffVector K n) (AffPoint K n) := {
+    zero_vadd := sorry,
+    add_vadd := sorry
+}
+
 def vsub_Aff : AffPoint K n → AffPoint K n → AffVector K n
 | ⟨ l1, _ ⟩, ⟨ l2, _ ⟩ =>
   ⟨
@@ -130,28 +138,39 @@ def vsub_Aff : AffPoint K n → AffPoint K n → AffVector K n
 
 instance : VSub (AffVector K n) (AffPoint K n) :=  { vsub := vsub_Aff n}
 
-def inverse: AffVector K n → AffVector K n := sorry
+def inverse : AffVector K n → AffVector K n := sorry
 
-instance AddAction AffVector AddPoint := sorry
-
-
-
-
-instance : Add AffVector := { add := vadd_Aff }   -- using {} notation
-
-
-instance : AddSemigroup AffVector := { add_assoc := sorry }
-
-
-instance : AddMonoid AffVector := {
-  zero_add := sorry
-  add_zero := sorry
-}
-
-instance : SubNegMonoid AffVector := {
+instance : SubNegMonoid (AffVector K n) := {
     neg := inverse,
     sub_eq_add_neg := sorry,
     zsmul_zero' := sorry,
     zsmul_succ' := sorry,
     zsmul_neg' := sorry
 }
+
+instance : AddGroup (AffVector K n) := {
+    add_left_neg := sorry
+}
+
+instance : VSub (AffVector K n) (AffPoint K n) := {
+    vsub := sorry
+}
+
+instance : Nonempty (AffPoint K n) := Nonempty.intro _
+
+instance : Nonempty (AffPoint K n) := ⟨ _ ⟩
+
+instance : AddTorsor (AffVector K n) (AffPoint K n) := {
+    vsub_vadd' := sorry,
+    vadd_vsub' := sorry
+}
+
+-- TODO
+-- zer_vec : works but replace sorry with commented line
+-- AddMonoid
+-- Inverse
+-- SubNegMonoid (Should be fixed by inverse)
+-- Nonempty
+-- AddTorsor (The mideterm version also has the same error)
+
+end k_affine_n
