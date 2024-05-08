@@ -95,7 +95,7 @@ class VSub (G : outParam (Type*)) (P : Type*) where
 -/
 
 instance zero_vec : Zero (AffVector K n) where
-  zero := ⟨ List.replicate n 0, sorry ⟩ --  List.length_replicate n 0
+  zero := ⟨ List.replicate n 0, sorry ⟩ -- List.length_replicate n 0
 
 def add_vectors : AffVector K n → AffVector K n → AffVector K n
 | ⟨ l1, _ ⟩, ⟨ l2, _ ⟩ =>
@@ -166,7 +166,7 @@ instance : AddTorsor (AffVector K n) (AffPoint K n) := {
 }
 
 -- TODO
--- zer_vec : works but replace sorry with commented line
+-- zer_vec : Done, replace sorry with commented code
 -- AddMonoid
 -- Inverse
 -- SubNegMonoid (Should be fixed by inverse)
