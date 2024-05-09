@@ -106,18 +106,6 @@ def add_vectors : AffVector K n → AffVector K n → AffVector K n
 
 instance : Add (AffVector K n) := { add := add_vectors n }
 
-theorem add_assoc_vector : ∀ (a b c : AffVector K n), a + b + c = a + (b + c) :=
-by
-  intros a b c
-  cases a
-  repeat {
-    cases b
-    repeat {
-      cases c
-      repeat {rfl}
-    }
-  }
-
 instance : AddSemigroup (AffVector K n) := { add_assoc := sorry}
 
 instance : AddMonoid (AffVector K n) := {
@@ -170,9 +158,9 @@ instance : VSub (AffVector K n) (AffPoint K n) := {
     vsub := sorry
 }
 
-instance : Nonempty (AffPoint K n) := Nonempty.intro _
+instance : Nonempty (AffPoint K n) := Nonempty.intro ⟨List.replicate n 0, List.length_replicate n 0⟩
 
-instance : Nonempty (AffPoint K n) := ⟨ _ ⟩
+instance : Nonempty (AffPoint K n) := ⟨List.replicate n 0, List.length_replicate n 0⟩
 
 instance : AddTorsor (AffVector K n) (AffPoint K n) := {
     vsub_vadd' := sorry,
@@ -188,3 +176,15 @@ instance : AddTorsor (AffVector K n) (AffPoint K n) := {
 -- AddTorsor (The midterm version also has the same error)
 
 end k_affine_n
+
+-- theorem add_assoc_vector : ∀ (a b c : AffVector K n), a + b + c = a + (b + c) :=
+-- by
+--   intros a b c
+--   cases a
+--   repeat {
+--     cases b
+--     repeat {
+--       cases c
+--       repeat {rfl}
+--     }
+--   }
