@@ -26,6 +26,10 @@ def v2 := p2 +ᵥ p1
 
 #eval s!"{v2}"
 
+def v3 := -v
+
+#eval s!"{v2}"
+
 #check ToString (AffPoint ℚ 3)
 
 def main : IO Unit :=
@@ -36,6 +40,7 @@ def main : IO Unit :=
     IO.println s!"p2 = {p2}"
     IO.println s!"v = p1 -ᵥ p2 = {v}"
     IO.println s!"v2 = p1 +ᵥ p2 = {v2}"
+    IO.println s!"-v = {v3}"
 
 
 #eval main
